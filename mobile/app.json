@@ -1,7 +1,8 @@
 {
   "expo": {
+    "entryPoint" : "../mobile/js/index.js",
     "name": "Blank Template",
-    "slug": "mobile",
+    "slug": "social-workout-app",
     "privacy": "public",
     "sdkVersion": "36.0.0",
     "platforms": [
