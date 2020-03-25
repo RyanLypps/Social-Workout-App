@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { AppRegistry } from 'react-native';
 import { registerRootComponent } from 'expo';
 import { Provider } from 'react-redux';
 import Routes from './components/Routes'
