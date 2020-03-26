@@ -75,3 +75,25 @@ export const register = StyleSheet.create({
     color: 'white',
   }
 })
+
+export const landingPage = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignSelf: 'stretch',
+    paddingBottom: 250,
+    backgroundColor:'#3282b8'
+  },
+  input: {
+    margin: 15,
+    height: 40,
+    borderColor: 'white',
+    borderWidth: 1,
+    borderRadius: 10
+    
+  },
+  header:{
+    fontSize: 50,
+    alignSelf: 'center',
+    color: 'white',
+  }
+})
