@@ -4,16 +4,16 @@ import { connect } from 'react-redux';
 
 class LandingPage extends Component {
     render() {
-        console.log(this.props)
         return (
-            <View></View>
+            <View>
+            </View>
         )
     }
 }
 
 function mapStoreToProps(store) {
     return {
-      token: store.loginRegister.token
+      token: store.login.token || store.register.token
     }
   }
   

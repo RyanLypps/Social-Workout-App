@@ -4,7 +4,7 @@ const defaultState = {
   token: ''
 }
 
-export default function LoginRegisterReducer(state = defaultState, action) {
+export default function LoginReducer(state = defaultState, action) {
   const { type, payload } = action;
   switch (type) {
     case 'HANDLE_LOGIN_EMAIL': {
