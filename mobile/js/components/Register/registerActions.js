@@ -37,12 +37,12 @@ export function handleRegisterSubmit(username, email, password) {
           payload: 
             axios.post(`${HOST}/api/Users`, {
               username: username,
-              email: email,
+              email: email.toLowerCase(),
               password: password,
           })
 						.then(res => 
               axios.post(`${HOST}/api/Users/login`, {
-              	email: email,
+              	email: email.toLowerCase(),
               	password: password
             })
             	.then(res => {

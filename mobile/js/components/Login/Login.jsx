@@ -36,7 +36,7 @@ class Login extends Component {
         </View>
         <TextInput
           style={login.input}
-          placeholder="Enter Username"
+          placeholder="Enter Email"
           placeholderTextColor='white'
           onChangeText={text => this.handleEmail(text)}
         />
