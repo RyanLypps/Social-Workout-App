@@ -6,7 +6,7 @@ export const login = StyleSheet.create({
     flex: 1,
     alignSelf: 'stretch',
     paddingBottom: 250,
-    backgroundColor:'#3282b8'
+    backgroundColor: '#3282b8'
   },
   input: {
     margin: 15,
@@ -14,7 +14,7 @@ export const login = StyleSheet.create({
     borderColor: 'white',
     borderWidth: 1,
     borderRadius: 10
-    
+
   },
   button: {
     borderColor: 'white',
@@ -31,7 +31,7 @@ export const login = StyleSheet.create({
     textAlign: 'center',
     fontWeight: 'bold'
   },
-  header:{
+  header: {
     fontSize: 50,
     alignSelf: 'center',
     color: 'white',
@@ -44,7 +44,7 @@ export const register = StyleSheet.create({
     flex: 1,
     alignSelf: 'stretch',
     paddingBottom: 250,
-    backgroundColor:'#3282b8'
+    backgroundColor: '#3282b8'
   },
   input: {
     margin: 15,
@@ -52,7 +52,7 @@ export const register = StyleSheet.create({
     borderColor: 'white',
     borderWidth: 1,
     borderRadius: 10
-    
+
   },
   button: {
     borderColor: 'white',
@@ -69,7 +69,7 @@ export const register = StyleSheet.create({
     textAlign: 'center',
     fontWeight: 'bold'
   },
-  header:{
+  header: {
     fontSize: 50,
     alignSelf: 'center',
     color: 'white',
@@ -78,10 +78,9 @@ export const register = StyleSheet.create({
 
 export const landingPage = StyleSheet.create({
   container: {
-    flex: 1,
-    alignSelf: 'stretch',
-    paddingBottom: 250,
-    backgroundColor:'#3282b8'
+    alignContent: 'space-around',
+    backgroundColor: '#3282b8',
+    paddingTop: 100,
   },
   input: {
     margin: 15,
@@ -89,11 +88,21 @@ export const landingPage = StyleSheet.create({
     borderColor: 'white',
     borderWidth: 1,
     borderRadius: 10
-    
+
   },
-  header:{
+  header: {
     fontSize: 50,
     alignSelf: 'center',
     color: 'white',
+  },
+  photo: {
+    height: 100,
+    width: 100
+  },
+  containerItemInfo: {
+    marginLeft: 0,
+    flexDirection: 'column',
+    paddingLeft: 10,
+    width: '75%',
   }
 })
