@@ -1,23 +1,29 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, Image, SafeAreaView } from 'react-native';
+import { View, Text, ScrollView, Image, TouchableOpacity } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { gymList } from '../../MockData';
 import { landingPage } from '../../../styles/Styles'
 
 
 class LandingPage extends Component {
-
+  goToSchedulePage = () => Actions.schedule();
   gymList() {
     return (
-      gymList.results.map((gym,index) => {
+      gymList.results.map((gym, index) => {
         return (
-            <View key={index}style={{flexDirection: 'row', flex: 1, borderTopColor: 'white', borderWidth: .5}}>
-            <Image style={landingPage.photo} source={require('../../../assets/gymPic.png')} />
-            <View style={{flex: 1}}>
-            <Text style={{fontSize: 25, alignSelf:'center'}}>{gym.name && gym.name.length > 21 ? gym.name.slice(0, 21) + '...' : gym.name}</Text>
-            <Text style={{fontSize: 15, alignSelf:'center'}}>{gym.vicinity}</Text>
+          <TouchableOpacity
+          onPress={() => this.goToSchedulePage()}
+          key={index+1}
+          >
+            <View key={index} style={{ flexDirection: 'row', flex: 1, borderTopColor: 'white', borderWidth: .5 }}>
+              <Image style={landingPage.photo} source={require('../../../assets/gymPic.png')} />
+              <View style={{ flex: 1 }}>
+                <Text style={{ fontSize: 25, alignSelf: 'center' }}>{gym.name && gym.name.length > 21 ? gym.name.slice(0, 21) + '...' : gym.name}</Text>
+                <Text style={{ fontSize: 15, alignSelf: 'center' }}>{gym.vicinity}</Text>
+              </View>
             </View>
-            </View>
+          </TouchableOpacity>
         )
       })
     )
@@ -26,7 +32,7 @@ class LandingPage extends Component {
   render() {
     return (
       <ScrollView style={landingPage.container} scrollEnabled={true}>
-        <View style={{flex:1}}>{this.gymList()}</View>
+        <View style={{ flex: 1 }}>{this.gymList()}</View>
       </ScrollView>
     )
   }
