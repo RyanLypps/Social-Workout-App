@@ -109,10 +109,9 @@ export const landingPage = StyleSheet.create({
 
 export const schedulePage = StyleSheet.create({
   container: {
-    alignContent: 'space-around',
     backgroundColor: '#3282b8',
     paddingTop: 100,
-    flex: 1, 
+    flex: 1
   },
 
 })

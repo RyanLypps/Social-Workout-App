@@ -1,7 +1,8 @@
 import React from 'react'
-import { View, Text, ScrollView } from 'react-native';
+import { View, Text, ScrollView, SafeAreaView } from 'react-native';
 import { schedulePage } from '../../../styles/Styles'
 import moment from 'moment'
+
 
 export default function Schedule() {
   var start = moment().startOf('week')
@@ -30,16 +31,16 @@ export default function Schedule() {
 
 
   return (
-    <ScrollView style={schedulePage.container} scrollEnabled={true}>
-    <View style={{ flex:1 }}>
-      {hours.map((hour, index) => {
-        return (
-          <View key={index} style={{flex:1, justifyContent: 'space-evenly'}}>
-            <Text>{hour}</Text>
-          </View>
-        )
-      })}
+    <View style={schedulePage.container}>
+      <ScrollView contentContainerStyle={{ flex: 1 }} scrollEnabled={true}>
+        {hours.map((hour, index) => {
+          return (
+            <View key={index} style={{ flexGrow: 1, flexDirection: 'column', justifyContent: 'space-between' }}>
+              <Text style={{ flexGrow: 1, justifyContent: 'space-evenly' }}>{hour}</Text>
+            </View>
+          )
+        })}
+      </ScrollView>
     </View>
-    </ScrollView>
   )
 }
