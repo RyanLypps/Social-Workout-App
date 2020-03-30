@@ -111,7 +111,36 @@ export const schedulePage = StyleSheet.create({
   container: {
     backgroundColor: '#3282b8',
     paddingTop: 100,
-    flex: 1
+
   },
+
+  textView: {
+    flex: 1,
+    flexDirection: 'row',
+    borderBottomColor: 'black',
+    borderWidth: .25,
+    margin: 10,
+    paddingBottom: 50,
+    height: 80,
+  },
+  text: {
+    flexGrow: 1,
+    justifyContent: 'space-evenly',
+    marginLeft: 5,
+    paddingTop: 5,
+    fontSize:20
+
+  },
+  button: {
+    alignSelf: 'flex-end',
+    borderColor: 'white',
+    borderWidth: 1,
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 20,
+    marginLeft: 10,
+    marginRight: 10
+  }
 
 })

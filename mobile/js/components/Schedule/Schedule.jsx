@@ -1,6 +1,7 @@
 import React from 'react'
-import { View, Text, ScrollView, SafeAreaView } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import { schedulePage } from '../../../styles/Styles'
+import Icon from 'react-native-vector-icons/FontAwesome'
 import moment from 'moment'
 
 
@@ -15,8 +16,11 @@ export default function Schedule() {
   }
   function hoursOfDay() {
     for (let i = 1; i <= 24; i++) {
-      if (i < 13) {
+      if (i < 12) {
         hours.push(i + 'am');
+      }
+      if (i == 12) {
+        hours.push(i + 'pm')
       }
       if (i > 12 && i < 24) {
         hours.push(i % 12 + 'pm');
@@ -32,11 +36,19 @@ export default function Schedule() {
 
   return (
     <View style={schedulePage.container}>
-      <ScrollView contentContainerStyle={{ flex: 1 }} scrollEnabled={true}>
+      <ScrollView scrollEnabled={true}>
         {hours.map((hour, index) => {
           return (
-            <View key={index} style={{ flexGrow: 1, flexDirection: 'column', justifyContent: 'space-between' }}>
-              <Text style={{ flexGrow: 1, justifyContent: 'space-evenly' }}>{hour}</Text>
+            <View key={index} style={schedulePage.textView}>
+              <Text style={schedulePage.text}>{hour}</Text>
+              <Icon 
+              name='user'
+              size={50} 
+              color="black"
+              />
+                <TouchableOpacity style={schedulePage.button}>
+                  <Text style={schedulePage.buttonText}>Schedule</Text>
+                </TouchableOpacity>
             </View>
           )
         })}
