@@ -20,7 +20,7 @@ export function handleLoginSubmit(email, password) {
   return dispatch => {
     return dispatch({
       type: 'HANDLE_LOGIN_SUBMIT',
-      payload: axios.post(`http://192.168.1.76:3000/api/Users/login`, {
+      payload: axios.post(`${HOST}/api/Users/login`, {
         email: email.toLowerCase(),
         password: password
       })
