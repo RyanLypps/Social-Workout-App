@@ -1,11 +1,6 @@
-
-export function handleModalVisabilityShow() {
+export function handleShowModal(showModal) {
     return {
-      type: 'HANDLE_MODAL_VISABILITY_SHOW',
-    }
-  }
-  export function handleModalVisabilityHide() {
-    return {
-      type: 'HANDLE_MODAL_VISABILITY_HIDE',
+      type: 'HANDLE_SHOW_MODAL',
+      payload: !showModal
     }
   }

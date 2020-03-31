@@ -5,8 +5,7 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import moment from 'moment'
 import { connect } from 'react-redux';
 import {
-  handleModalVisabilityShow,
-  handleModalVisabilityHide
+  handleShowModal,
 } from './scheduleActions';
 
 const hours = [];
@@ -15,14 +14,9 @@ let week = [];
 
 class Schedule extends Component {
 
-  handleModalVisabilityShow() {
-    const { dispatch } = this.props;
-    dispatch(handleModalVisabilityShow());
-  }
-
-  handleModalVisabilityHide() {
-    const { dispatch } = this.props;
-    dispatch(handleModalVisabilityHide());
+  showModal() {
+    const { dispatch, showModal } = this.props;
+    dispatch(handleShowModal(showModal));
   }
 
   hoursOfDay() {
@@ -48,7 +42,6 @@ class Schedule extends Component {
 
   render() {
     this.hoursOfDay();
-    console.log(this.props.modalVisable);
 
     return (
       <View style={schedulePage.container} >
@@ -61,10 +54,10 @@ class Schedule extends Component {
             backgroundColor: '#3282b8'
           }}>
             <Modal
-              presentationStyle={'fullScreen'}
+              presentationStyle={'overFullScreen'}
               animationType="slide"
               transparent={false}
-              visible={this.props.modalVisable}
+              visible={this.props.showModal}
             >
               <View style={{
                 flex: 1,
@@ -75,7 +68,7 @@ class Schedule extends Component {
               }}>
               <Text>Hello!</Text>
               <TouchableOpacity
-                onPress={() => this.handleModalVisabilityHide()}
+                onPress={() => this.showModal()}
               >
                 <Text style={{color: 'black'}}>Schedule</Text>
               </TouchableOpacity>
@@ -93,7 +86,7 @@ class Schedule extends Component {
                 />
                 <TouchableOpacity
                   style={schedulePage.button}
-                  onPress={() => this.handleModalVisabilityShow()}
+                  onPress={() => this.showModal()}
                 >
                   <Text style={schedulePage.buttonText}>Schedule</Text>
                 </TouchableOpacity>
@@ -108,7 +101,8 @@ class Schedule extends Component {
 
 function mapStoreToProps(store) {
   return {
-    modalVisable: store.schedule.modalVisable
+    showModal: store.schedule.showModal,
+    token: store.login.token || store.register.token
   }
 }
 
