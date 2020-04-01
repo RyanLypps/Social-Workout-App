@@ -1,5 +1,13 @@
 const defaultState = {
     showModal: false,
+    data: [{
+      value: 'Beginner',
+    }, {
+      value: 'Moderate',
+    }, {
+      value: 'High',
+    }],
+    levelOfExpValue: [],
   }
   
   export default function scheduleReducer(state = defaultState, action) {
@@ -9,6 +17,12 @@ const defaultState = {
         return {
           ...state,
           showModal: payload,
+        }
+      }
+      case 'HANDLE_LEVEL_OF_EXP': {
+        return {
+          ...state,
+          levelOfExpValue: [...state.levelOfExpValue, action.payload],
         }
       }
   

@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, Modal } from 'react-native';
+import { Dropdown } from 'react-native-material-dropdown';
 import { schedulePage } from '../../../styles/Styles'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import moment from 'moment'
 import { connect } from 'react-redux';
 import {
   handleShowModal,
+  levelOfExp
 } from './scheduleActions';
 
 const hours = [];
@@ -17,6 +19,10 @@ class Schedule extends Component {
   showModal() {
     const { dispatch, showModal } = this.props;
     dispatch(handleShowModal(showModal));
+  }
+  levelOfExp(value) {
+    const { dispatch } = this.props;
+    dispatch(levelOfExp(value));
   }
 
   hoursOfDay() {
@@ -42,7 +48,6 @@ class Schedule extends Component {
 
   render() {
     this.hoursOfDay();
-
     return (
       <View style={schedulePage.container} >
         <ScrollView scrollEnabled={true}>
@@ -54,24 +59,32 @@ class Schedule extends Component {
             backgroundColor: '#3282b8'
           }}>
             <Modal
-              presentationStyle={'overFullScreen'}
               animationType="slide"
-              transparent={false}
+              transparent={true}
               visible={this.props.showModal}
             >
               <View style={{
                 flex: 1,
+                margin: 50,
+                marginTop: 200,
                 justifyContent: "center",
                 alignItems: "center",
-                marginTop: 22,
-                backgroundColor: '#3282b8'
+                backgroundColor: 'gray'
               }}>
-              <Text>Hello!</Text>
-              <TouchableOpacity
-                onPress={() => this.showModal()}
-              >
-                <Text style={{color: 'black'}}>Schedule</Text>
-              </TouchableOpacity>
+                <Dropdown
+                  label='Levels of Experience'
+                  value={'Select your level'}
+                  data={this.props.data}
+                  pickerStyle={{ borderBottomColor: 'transparent', borderWidth: 2 }}
+                  containerStyle={{ width: 200 }}
+                  onChangeText={value => this.levelOfExp(value)}
+                />
+                <Text>Hello!</Text>
+                <TouchableOpacity
+                  onPress={() => this.showModal()}
+                >
+                  <Text style={{ color: 'black' }}>Schedule</Text>
+                </TouchableOpacity>
               </View>
             </Modal>
           </View>
@@ -102,7 +115,9 @@ class Schedule extends Component {
 function mapStoreToProps(store) {
   return {
     showModal: store.schedule.showModal,
-    token: store.login.token || store.register.token
+    token: store.login.token || store.register.token,
+    data: store.schedule.data,
+    levelOfExpValue: store.schedule.levelOfExpValue
   }
 }
 

@@ -4,3 +4,9 @@ export function handleShowModal(showModal) {
       payload: !showModal
     }
   }
+export function levelOfExp(value) {
+    return {
+      type: 'HANDLE_LEVEL_OF_EXP',
+      payload: [...value]
+    }
+  }
