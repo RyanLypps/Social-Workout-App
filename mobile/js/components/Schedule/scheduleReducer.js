@@ -1,13 +1,6 @@
 const defaultState = {
     showModal: false,
-    data: [{
-      value: 'Beginner',
-    }, {
-      value: 'Moderate',
-    }, {
-      value: 'High',
-    }],
-    levelOfExpValue: [],
+    modalInfo: [],
   }
   
   export default function scheduleReducer(state = defaultState, action) {
@@ -19,10 +12,25 @@ const defaultState = {
           showModal: payload,
         }
       }
-      case 'HANDLE_LEVEL_OF_EXP': {
+
+      case 'HANDLE_PERSONAL_EXP': {
         return {
           ...state,
-          levelOfExpValue: [...state.levelOfExpValue, action.payload],
+          modalInfo: {...state.modalInfo, personalExperience: action.payload},
+        }
+      }
+
+      case 'HANDLE_PARTNER_EXP': {
+        return {
+          ...state,
+          modalInfo: {...state.modalInfo, partnerExperience: action.payload},
+        }
+      }
+
+      case 'HANDLE_START_TIME': {
+        return {
+          ...state,
+          modalInfo: {...state.modalInfo, startTime: action.payload},
         }
       }
   

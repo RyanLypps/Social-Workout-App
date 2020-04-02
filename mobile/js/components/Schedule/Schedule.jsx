@@ -7,47 +7,124 @@ import moment from 'moment'
 import { connect } from 'react-redux';
 import {
   handleShowModal,
-  levelOfExp
+  personalExp,
+  partnerExp,
+  handleStartTime,
 } from './scheduleActions';
 
 const hours = [];
 var start = moment().startOf('week');
 let week = [];
+const data = [{
+  value: 'Beginner',
+}, {
+  value: 'Moderate',
+}, {
+  value: 'High',
+}];
 
 class Schedule extends Component {
+  componentWillMount() {
+    this.hoursOfDay();
+  }
 
   showModal() {
     const { dispatch, showModal } = this.props;
     dispatch(handleShowModal(showModal));
   }
-  levelOfExp(value) {
+  personalExperience(value) {
     const { dispatch } = this.props;
-    dispatch(levelOfExp(value));
+    dispatch(personalExp(value));
   }
+
+  partnerExperience(value) {
+    const { dispatch } = this.props;
+    dispatch(partnerExp(value));
+  }
+
+  startTime(hour) {
+    const { dispatch } = this.props;
+    dispatch(handleStartTime(hour));
+  }
+
+  // endTime() {
+  //   let endTimeArr = [];
+  //   let endTime = this.props.modalInfo.startTime == undefined ? undefined : this.props.modalInfo.startTime.match(/\d+/g).map(Number);
+  //   let amPm = this.props.modalInfo.startTime == undefined ? undefined : this.props.modalInfo.startTime.split('').find(e => e == 'a' || e == 'p' ? e : '');
+  //   for (let i = 0; i < 6; i++) {
+  //     if (endTime > 11) {
+  //       if (endTime ==  12) {
+  //         endTime++
+  //         continue;
+  //       }
+  //       if (endTime == 13) {
+  //         endTimeArr.push(1);
+  //         endTime++
+  //         continue;
+  //       }
+  //       if (endTime == 14) {
+  //         endTimeArr.push(2);
+  //         endTime++;
+  //         continue;
+  //       }
+  //       if (endTime == 15) {
+  //         endTimeArr.push(3);
+  //         endTime++;
+  //         continue;
+  //       }
+  //       if (endTime == 16) {
+  //         endTimeArr.push(4);
+  //         endTime++;
+  //         continue;
+  //       }
+  //       if (endTime == 17) {
+  //         endTimeArr.push(5);
+  //         endTime++;
+  //         continue;
+  //       }
+  //       if (endTime == 18) {
+  //         endTimeArr.push(6);
+  //         endTime++;
+  //         continue;
+  //       }
+  //     } else {
+  //       endTime++;
+  //       endTimeArr.push(endTime);
+  //     }
+  //   }
+  //   if(amPm == 'a') {
+  //    let tempStor = endTimeArr.join('am ') + 'am';
+  //     console.log(tempStor);
+
+  //   } else {
+  //     let tempStor1 = endTimeArr.join('pm ') + 'pm';
+  //     console.log(tempStor1);
+  //   }
+  // }
 
   hoursOfDay() {
     for (let i = 0; i < 8; i++) {
       week.push(moment(start).add(i, 'd'))
     }
-    for (let i = 1; i <= 24; i++) {
-      if (i < 12) {
-        hours.push(i + 'am');
+    for (let j = 1; j <= 24; j++) {
+      if (j < 12) {
+        hours.push(j + 'am');
       }
-      if (i == 12) {
-        hours.push(i + 'pm')
+      if (j == 12) {
+        hours.push(j + 'pm')
       }
-      if (i > 12 && i < 24) {
-        hours.push(i % 12 + 'pm');
+      if (j > 12 && j < 24) {
+        hours.push(j % 12 + 'pm');
       }
-      if (i == 24) {
+      if (j == 24) {
         hours.push(12 + 'am');
       }
     }
-    return hours
+    return hours;
   }
 
   render() {
-    this.hoursOfDay();
+    // console.log(this.props.modalInfo);
     return (
       <View style={schedulePage.container} >
         <ScrollView scrollEnabled={true}>
@@ -71,13 +148,31 @@ class Schedule extends Component {
                 alignItems: "center",
                 backgroundColor: 'gray'
               }}>
+
+                <Text>Start Time: {this.props.modalInfo.startTime}</Text>
                 <Dropdown
-                  label='Levels of Experience'
-                  value={'Select your level'}
-                  data={this.props.data}
+                  label='End Time'
+                  value={'Select End Time'}
+                  // data={this.endTime()}
                   pickerStyle={{ borderBottomColor: 'transparent', borderWidth: 2 }}
                   containerStyle={{ width: 200 }}
-                  onChangeText={value => this.levelOfExp(value)}
+                  onChangeText={value => this.personalExperience(value)}
+                />
+                <Dropdown
+                  label='Personal Experience Level'
+                  value={'Select your level'}
+                  data={data}
+                  pickerStyle={{ borderBottomColor: 'transparent', borderWidth: 2 }}
+                  containerStyle={{ width: 200 }}
+                  onChangeText={value => this.personalExperience(value)}
+                />
+                <Dropdown
+                  label='Preferred Partner Experience Level'
+                  value={'Select your level'}
+                  data={data}
+                  pickerStyle={{ borderBottomColor: 'transparent', borderWidth: 2 }}
+                  containerStyle={{ width: 200 }}
+                  onChangeText={value => this.partnerExperience(value)}
                 />
                 <Text>Hello!</Text>
                 <TouchableOpacity
@@ -99,7 +194,7 @@ class Schedule extends Component {
                 />
                 <TouchableOpacity
                   style={schedulePage.button}
-                  onPress={() => this.showModal()}
+                  onPress={() => { this.showModal(); this.startTime(hour) }}
                 >
                   <Text style={schedulePage.buttonText}>Schedule</Text>
                 </TouchableOpacity>
@@ -116,8 +211,7 @@ function mapStoreToProps(store) {
   return {
     showModal: store.schedule.showModal,
     token: store.login.token || store.register.token,
-    data: store.schedule.data,
-    levelOfExpValue: store.schedule.levelOfExpValue
+    modalInfo: store.schedule.modalInfo,
   }
 }
 

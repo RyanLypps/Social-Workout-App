@@ -4,9 +4,22 @@ export function handleShowModal(showModal) {
       payload: !showModal
     }
   }
-export function levelOfExp(value) {
+export function personalExp(value) {
     return {
-      type: 'HANDLE_LEVEL_OF_EXP',
-      payload: [...value]
+      type: 'HANDLE_PERSONAL_EXP',
+      payload: value
+    }
+  }
+
+export function partnerExp(value) {
+    return {
+      type: 'HANDLE_PARTNER_EXP',
+      payload: value
+    }
+  }
+export function handleStartTime(hour) {
+    return {
+      type: 'HANDLE_START_TIME',
+      payload: hour
     }
   }
