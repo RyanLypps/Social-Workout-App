@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, TouchableOpacity, Modal } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, Modal, TextInput } from 'react-native';
 import { Dropdown } from 'react-native-material-dropdown';
 import { schedulePage } from '../../../styles/Styles'
 import Icon from 'react-native-vector-icons/FontAwesome'
@@ -10,6 +10,8 @@ import {
   personalExp,
   partnerExp,
   handleStartTime,
+  spentHours,
+  workoutDesc
 } from './scheduleActions';
 
 const hours = [];
@@ -22,6 +24,15 @@ const data = [{
 }, {
   value: 'High',
 }];
+let hourData = [{
+  value: '1 hour',
+}, {
+  value: '2 hours',
+}, {
+  value: '3 hours',
+}, {
+  value: '4 hours+'
+}]
 
 class Schedule extends Component {
   componentWillMount() {
@@ -41,66 +52,21 @@ class Schedule extends Component {
     const { dispatch } = this.props;
     dispatch(partnerExp(value));
   }
+  hoursSpent(value) {
+    const { dispatch } = this.props;
+    dispatch(spentHours(value));
+  }
 
   startTime(hour) {
     const { dispatch } = this.props;
     dispatch(handleStartTime(hour));
   }
 
-  // endTime() {
-  //   let endTimeArr = [];
-  //   let endTime = this.props.modalInfo.startTime == undefined ? undefined : this.props.modalInfo.startTime.match(/\d+/g).map(Number);
-  //   let amPm = this.props.modalInfo.startTime == undefined ? undefined : this.props.modalInfo.startTime.split('').find(e => e == 'a' || e == 'p' ? e : '');
-  //   for (let i = 0; i < 6; i++) {
-  //     if (endTime > 11) {
-  //       if (endTime ==  12) {
-  //         endTime++
-  //         continue;
-  //       }
-  //       if (endTime == 13) {
-  //         endTimeArr.push(1);
-  //         endTime++
-  //         continue;
-  //       }
-  //       if (endTime == 14) {
-  //         endTimeArr.push(2);
-  //         endTime++;
-  //         continue;
-  //       }
-  //       if (endTime == 15) {
-  //         endTimeArr.push(3);
-  //         endTime++;
-  //         continue;
-  //       }
-  //       if (endTime == 16) {
-  //         endTimeArr.push(4);
-  //         endTime++;
-  //         continue;
-  //       }
-  //       if (endTime == 17) {
-  //         endTimeArr.push(5);
-  //         endTime++;
-  //         continue;
-  //       }
-  //       if (endTime == 18) {
-  //         endTimeArr.push(6);
-  //         endTime++;
-  //         continue;
-  //       }
-  //     } else {
-  //       endTime++;
-  //       endTimeArr.push(endTime);
-  //     }
-  //   }
-  //   if(amPm == 'a') {
-  //    let tempStor = endTimeArr.join('am ') + 'am';
-  //     console.log(tempStor);
+  workoutDescription = text => {
+    const { dispatch } = this.props;
+    dispatch(workoutDesc(text));
+  }
 
-  //   } else {
-  //     let tempStor1 = endTimeArr.join('pm ') + 'pm';
-  //     console.log(tempStor1);
-  //   }
-  // }
 
   hoursOfDay() {
     for (let i = 0; i < 8; i++) {
@@ -124,7 +90,7 @@ class Schedule extends Component {
   }
 
   render() {
-    // console.log(this.props.modalInfo);
+    console.log(this.props.modalInfo);
     return (
       <View style={schedulePage.container} >
         <ScrollView scrollEnabled={true}>
@@ -152,11 +118,11 @@ class Schedule extends Component {
                 <Text>Start Time: {this.props.modalInfo.startTime}</Text>
                 <Dropdown
                   label='End Time'
-                  value={'Select End Time'}
-                  // data={this.endTime()}
+                  value={'hours spent at gym today?'}
+                  data={hourData}
                   pickerStyle={{ borderBottomColor: 'transparent', borderWidth: 2 }}
                   containerStyle={{ width: 200 }}
-                  onChangeText={value => this.personalExperience(value)}
+                  onChangeText={value => this.hoursSpent(value)}
                 />
                 <Dropdown
                   label='Personal Experience Level'
@@ -174,11 +140,21 @@ class Schedule extends Component {
                   containerStyle={{ width: 200 }}
                   onChangeText={value => this.partnerExperience(value)}
                 />
-                <Text>Hello!</Text>
+                <TextInput
+                  style={{borderWidth: 1, borderColor: 'black', height: 200, width: 250, textAlign:'center'}}
+                  placeholder="Todays Workout Description"
+                  placeholderTextColor='white'
+                  onChangeText={text => this.workoutDescription(text)}
+                />
                 <TouchableOpacity
                   onPress={() => this.showModal()}
                 >
-                  <Text style={{ color: 'black' }}>Schedule</Text>
+                  <Text style={{ color: 'black' }}>Post</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => this.showModal()}
+                >
+                  <Text style={{ color: 'black' }}>Cancel</Text>
                 </TouchableOpacity>
               </View>
             </Modal>

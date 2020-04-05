@@ -17,9 +17,22 @@ export function partnerExp(value) {
       payload: value
     }
   }
+  export function spentHours(value) {
+    return {
+      type: 'HANDLE_HOURS_SPENT',
+      payload: value
+    }
+  }
 export function handleStartTime(hour) {
     return {
       type: 'HANDLE_START_TIME',
       payload: hour
     }
   }
+
+  export function workoutDesc(desc) {
+    return {
+      type: 'HANDLE_WORKOUT_DESCRIPTION',
+      payload: { desc }
+    }
+  }  
