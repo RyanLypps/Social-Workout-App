@@ -11,7 +11,9 @@ import {
   partnerExp,
   handleStartTime,
   spentHours,
-  workoutDesc
+  workoutDesc, 
+  handlePostWorkout,
+  handleGetWorkout
 } from './scheduleActions';
 
 const hours = [];
@@ -37,6 +39,7 @@ let hourData = [{
 class Schedule extends Component {
   componentWillMount() {
     this.hoursOfDay();
+    this.getWorkout();
   }
 
   showModal() {
@@ -67,6 +70,15 @@ class Schedule extends Component {
     dispatch(workoutDesc(text));
   }
 
+  postWorkout = () => {
+    const { dispatch } = this.props;
+    dispatch(handlePostWorkout(this.props.modalInfo));
+  }
+
+  getWorkout = () => {
+    const { dispatch } = this.props;
+    dispatch(handleGetWorkout());
+  }
 
   hoursOfDay() {
     for (let i = 0; i < 8; i++) {
@@ -88,9 +100,18 @@ class Schedule extends Component {
     }
     return hours;
   }
+  counter(index) {
+    console.log(index);
+    let counter = this.props.workoutInfo.length;
+    counter++;
+     return counter;
+
+     // index can equal start time and counter++ will occcur for that list item
+  }
 
   render() {
-    console.log(this.props.modalInfo);
+    // console.log(this.props.workoutInfo);
+    // console.log('WORKOUT  INFO');
     return (
       <View style={schedulePage.container} >
         <ScrollView scrollEnabled={true}>
@@ -147,7 +168,7 @@ class Schedule extends Component {
                   onChangeText={text => this.workoutDescription(text)}
                 />
                 <TouchableOpacity
-                  onPress={() => this.showModal()}
+                  onPress={() =>{ this.showModal(); this.postWorkout()}}
                 >
                   <Text style={{ color: 'black' }}>Post</Text>
                 </TouchableOpacity>
@@ -163,6 +184,7 @@ class Schedule extends Component {
             return (
               <View key={index} style={schedulePage.textView}>
                 <Text style={schedulePage.text}>{hour}</Text>
+                <Text style={schedulePage.text}>{this.counter(index)}</Text>
                 <Icon
                   name='user'
                   size={50}
@@ -188,6 +210,7 @@ function mapStoreToProps(store) {
     showModal: store.schedule.showModal,
     token: store.login.token || store.register.token,
     modalInfo: store.schedule.modalInfo,
+    workoutInfo: store.schedule.workoutInfo
   }
 }
 

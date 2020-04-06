@@ -1,3 +1,6 @@
+import axios  from 'axios'
+import { HOST } from 'react-native-dotenv';
+
 export function handleShowModal(showModal) {
     return {
       type: 'HANDLE_SHOW_MODAL',
@@ -36,3 +39,25 @@ export function handleStartTime(hour) {
       payload: { desc }
     }
   }  
+
+  export function handlePostWorkout(modalInfo) {
+    return {
+      type: 'HANDLE_WORKOUT_INFO',
+      payload: axios.post(`${HOST}/api/WorkoutInfos`, {
+        hoursSpent: modalInfo.hoursSpent,
+        partnerExperience: modalInfo.partnerExperience,
+        personalExperience:  modalInfo.personalExperience,
+        startTime: modalInfo.startTime,
+        workoutDescription: modalInfo.workoutDescription,
+      })
+      //  .then(res => console.log(res))
+      // .catch(err => console.log(err))
+  }  
+}
+  export function handleGetWorkout(modalInfo) {
+    return {
+      type: 'HANDLE_GET_WORKOUT_INFO',
+      payload: axios.get(`${HOST}/api/WorkoutInfos`)
+    }
+  }  
+ 

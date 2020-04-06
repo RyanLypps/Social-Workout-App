@@ -1,6 +1,7 @@
 const defaultState = {
   showModal: false,
   modalInfo: [],
+  workoutInfo: [],
 }
 
 export default function scheduleReducer(state = defaultState, action) {
@@ -46,6 +47,19 @@ export default function scheduleReducer(state = defaultState, action) {
         ...state,
         modalInfo: { ...state.modalInfo, workoutDescription: action.payload.desc }
       }
+    }
+    case 'HANDLE_GET_WORKOUT_INFO_FULFILLED': {
+      return {
+        ...state,
+        workoutInfo: payload.data 
+      }
+    }
+
+    case 'HANDLE_GET_WORKOUT_INFO-REJECTED': {
+      return {
+        ...state,
+        error: "wrong"
+      };
     }
 
 
