@@ -55,11 +55,8 @@ export default function scheduleReducer(state = defaultState, action) {
       }
     }
 
-    case 'HANDLE_GET_WORKOUT_INFO-REJECTED': {
-      return {
-        ...state,
-        error: "wrong"
-      };
+    case 'HANDLE_GET_WORKOUT_INFO_REJECTED': {
+      return console.log('rejected reducer hit')
     }
 
     case 'HANDLE_GET_GYM_ID': {

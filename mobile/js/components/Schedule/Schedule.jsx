@@ -51,6 +51,7 @@ class Schedule extends Component {
     const { dispatch, showModal } = this.props;
     dispatch(handleShowModal(showModal));
   }
+
   personalExperience(value) {
     const { dispatch } = this.props;
     dispatch(personalExp(value));
@@ -78,7 +79,7 @@ class Schedule extends Component {
 
   postWorkout = () => {
     const { dispatch } = this.props;
-    dispatch(handlePostWorkout(this.props.modalInfo));
+    dispatch(handlePostWorkout(this.props.modalInfo))
   }
 
   getWorkout = () => {
@@ -117,18 +118,13 @@ class Schedule extends Component {
   }
 
   counter(hour) {
-    let startTimeArr = [];
     let counter = 0;
 
     for (let i = 0; i < this.props.workoutInfo.length; i++) {
       if (this.props.workoutInfo[i].gymId === this.props.gymId) {
-        startTimeArr.push(this.props.workoutInfo[i].startTime);
-      }
-    }
-
-    for (let j = 0; j < startTimeArr.length; j++) {
-      if (startTimeArr[j] == hour) {
-        counter++;
+        if(this.props.workoutInfo[i].startTime == hour) {
+          counter++;
+        } 
       }
     }
     return counter;
@@ -191,7 +187,7 @@ class Schedule extends Component {
                   onChangeText={text => this.workoutDescription(text)}
                 />
                 <TouchableOpacity
-                  onPress={() => { this.showModal(); this.postWorkout(); }}
+                  onPress={() => { this.showModal(); this.postWorkout() }}
                 >
                   <Text style={{ color: 'black' }}>Post</Text>
                 </TouchableOpacity>
@@ -204,7 +200,6 @@ class Schedule extends Component {
             </Modal>
           </View>
           {hours.map((hour, index) => {
-
             return (
               <View key={index} style={schedulePage.textView}>
                 <Text style={schedulePage.text}>{hour}</Text>
