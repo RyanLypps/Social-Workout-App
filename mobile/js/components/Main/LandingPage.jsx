@@ -7,13 +7,13 @@ import { landingPage } from '../../../styles/Styles'
 
 
 class LandingPage extends Component {
-  goToSchedulePage = () => Actions.schedule();
+  goToSchedulePage = gymId => Actions.schedule({gymId: gymId});
   gymList() {
     return (
       gymList.results.map((gym, index) => {
         return (
           <TouchableOpacity
-          onPress={() => this.goToSchedulePage()}
+          onPress={() => this.goToSchedulePage(gym.place_id)}
           key={index+1}
           >
             <View key={index} style={{ flexDirection: 'row', flex: 1, borderTopColor: 'white', borderWidth: .5 }}>

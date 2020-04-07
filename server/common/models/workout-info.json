@@ -6,6 +6,10 @@
     "validateUpsert": true
   },
   "properties": {
+    "gymId": {
+      "type": "string",
+      "required": true
+    },
     "hoursSpent": {
       "type": "string",
       "required": true
@@ -26,6 +30,7 @@
       "type": "string",
       "required": true
     }
+
   },
   "validations": [],
   "relations": {},

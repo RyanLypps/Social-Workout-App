@@ -5,18 +5,21 @@ import { schedulePage } from '../../../styles/Styles'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import moment from 'moment'
 import { connect } from 'react-redux';
+import { gymList } from '../../MockData';
 import {
   handleShowModal,
   personalExp,
   partnerExp,
   handleStartTime,
   spentHours,
-  workoutDesc, 
+  workoutDesc,
   handlePostWorkout,
-  handleGetWorkout
+  handleGetWorkout,
+  handleGymId
 } from './scheduleActions';
 
 const hours = [];
+let isRunned = 0;
 var start = moment().startOf('week');
 let week = [];
 const data = [{
@@ -37,8 +40,10 @@ let hourData = [{
 }]
 
 class Schedule extends Component {
-  componentWillMount() {
+
+  componentDidMount() {
     this.hoursOfDay();
+    this.getGymId();
     this.getWorkout();
   }
 
@@ -55,6 +60,7 @@ class Schedule extends Component {
     const { dispatch } = this.props;
     dispatch(partnerExp(value));
   }
+
   hoursSpent(value) {
     const { dispatch } = this.props;
     dispatch(spentHours(value));
@@ -80,38 +86,55 @@ class Schedule extends Component {
     dispatch(handleGetWorkout());
   }
 
-  hoursOfDay() {
-    for (let i = 0; i < 8; i++) {
-      week.push(moment(start).add(i, 'd'))
-    }
-    for (let j = 1; j <= 24; j++) {
-      if (j < 12) {
-        hours.push(j + 'am');
-      }
-      if (j == 12) {
-        hours.push(j + 'pm')
-      }
-      if (j > 12 && j < 24) {
-        hours.push(j % 12 + 'pm');
-      }
-      if (j == 24) {
-        hours.push(12 + 'am');
-      }
-    }
-    return hours;
+  getGymId = () => {
+    const { dispatch } = this.props;
+    dispatch(handleGymId(this.props.gymId));
   }
-  counter(index) {
-    console.log(index);
-    let counter = this.props.workoutInfo.length;
-    counter++;
-     return counter;
 
-     // index can equal start time and counter++ will occcur for that list item
+  hoursOfDay() {
+    if(isRunned == 0) {
+      for (let i = 0; i < 8; i++) {
+        week.push(moment(start).add(i, 'd'))
+      }
+      for (let j = 1; j <= 24; j++) {
+        if (j < 12) {
+          hours.push(j + 'am');
+        }
+        if (j == 12) {
+          hours.push(j + 'pm')
+        }
+        if (j > 12 && j < 24) {
+          hours.push(j % 12 + 'pm');
+        }
+        if (j == 24) {
+          hours.push(12 + 'am');
+        }
+      }
+      isRunned++;
+      return hours;
+    }
+    return  '';
+  }
+
+  counter(hour) {
+    let startTimeArr = [];
+    let counter = 0;
+
+    for (let i = 0; i < this.props.workoutInfo.length; i++) {
+      if (this.props.workoutInfo[i].gymId === this.props.gymId) {
+        startTimeArr.push(this.props.workoutInfo[i].startTime);
+      }
+    }
+
+    for (let j = 0; j < startTimeArr.length; j++) {
+      if (startTimeArr[j] == hour) {
+        counter++;
+      }
+    }
+    return counter;
   }
 
   render() {
-    // console.log(this.props.workoutInfo);
-    // console.log('WORKOUT  INFO');
     return (
       <View style={schedulePage.container} >
         <ScrollView scrollEnabled={true}>
@@ -162,13 +185,13 @@ class Schedule extends Component {
                   onChangeText={value => this.partnerExperience(value)}
                 />
                 <TextInput
-                  style={{borderWidth: 1, borderColor: 'black', height: 200, width: 250, textAlign:'center'}}
+                  style={{ borderWidth: 1, borderColor: 'black', height: 200, width: 250, textAlign: 'center' }}
                   placeholder="Todays Workout Description"
                   placeholderTextColor='white'
                   onChangeText={text => this.workoutDescription(text)}
                 />
                 <TouchableOpacity
-                  onPress={() =>{ this.showModal(); this.postWorkout()}}
+                  onPress={() => { this.showModal(); this.postWorkout(); }}
                 >
                   <Text style={{ color: 'black' }}>Post</Text>
                 </TouchableOpacity>
@@ -181,10 +204,11 @@ class Schedule extends Component {
             </Modal>
           </View>
           {hours.map((hour, index) => {
+
             return (
               <View key={index} style={schedulePage.textView}>
                 <Text style={schedulePage.text}>{hour}</Text>
-                <Text style={schedulePage.text}>{this.counter(index)}</Text>
+                <Text style={schedulePage.text}>{this.counter(hour)}</Text>
                 <Icon
                   name='user'
                   size={50}

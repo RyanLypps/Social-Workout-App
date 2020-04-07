@@ -40,24 +40,33 @@ export function handleStartTime(hour) {
     }
   }  
 
+  export function handleGymId(gymId) {
+    return {
+      type: 'HANDLE_GET_GYM_ID',
+      payload: gymId
+    }
+  }  
+
   export function handlePostWorkout(modalInfo) {
     return {
       type: 'HANDLE_WORKOUT_INFO',
       payload: axios.post(`${HOST}/api/WorkoutInfos`, {
+        gymId: modalInfo.gymId,
         hoursSpent: modalInfo.hoursSpent,
         partnerExperience: modalInfo.partnerExperience,
         personalExperience:  modalInfo.personalExperience,
         startTime: modalInfo.startTime,
         workoutDescription: modalInfo.workoutDescription,
       })
-      //  .then(res => console.log(res))
-      // .catch(err => console.log(err))
+      .catch(() => alert('Something is wrong'))
   }  
 }
-  export function handleGetWorkout(modalInfo) {
+
+  export function handleGetWorkout() {
     return {
       type: 'HANDLE_GET_WORKOUT_INFO',
       payload: axios.get(`${HOST}/api/WorkoutInfos`)
     }
   }  
- 
+
+  

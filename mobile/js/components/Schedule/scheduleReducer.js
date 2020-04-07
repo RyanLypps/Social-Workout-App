@@ -62,6 +62,12 @@ export default function scheduleReducer(state = defaultState, action) {
       };
     }
 
+    case 'HANDLE_GET_GYM_ID': {
+      return {
+        ...state,
+        modalInfo: { ...state.modalInfo, gymId: action.payload }
+      };
+    }
 
     default: {
       return state;
