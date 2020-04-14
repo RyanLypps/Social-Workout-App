@@ -144,3 +144,11 @@ export const schedulePage = StyleSheet.create({
   }
 
 })
+
+export const scheduleDetails =StyleSheet.create({
+  container: {
+    backgroundColor: '#3282b8', 
+    flex: 1, 
+    justifyContent:'center'
+  }
+})

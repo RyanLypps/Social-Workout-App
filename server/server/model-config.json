@@ -38,5 +38,9 @@
   "WorkoutInfo": {
     "dataSource": "MongoDB",
     "public": true
+  },
+  "Customer": {
+    "dataSource": "MongoDB",
+    "public": true
   }
 }

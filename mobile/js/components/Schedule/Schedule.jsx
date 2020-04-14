@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Actions } from 'react-native-router-flux';
 import { View, Text, ScrollView, TouchableOpacity, Modal, TextInput } from 'react-native';
 import { Dropdown } from 'react-native-material-dropdown';
 import { schedulePage } from '../../../styles/Styles'
@@ -41,6 +42,8 @@ let hourData = [{
 
 class Schedule extends Component {
 
+  goToScheduleDetailsPage = (gymId, hour) => Actions.scheduleDetails({ gymId: gymId, hour: hour });
+
   componentDidMount() {
     this.hoursOfDay();
     this.getGymId();
@@ -79,7 +82,7 @@ class Schedule extends Component {
 
   postWorkout = () => {
     const { dispatch } = this.props;
-    dispatch(handlePostWorkout(this.props.modalInfo))
+    dispatch(handlePostWorkout(this.props.modalInfo, this.props.userId))
   }
 
   getWorkout = () => {
@@ -93,7 +96,7 @@ class Schedule extends Component {
   }
 
   hoursOfDay() {
-    if(isRunned == 0) {
+    if (isRunned == 0) {
       for (let i = 0; i < 8; i++) {
         week.push(moment(start).add(i, 'd'))
       }
@@ -114,7 +117,7 @@ class Schedule extends Component {
       isRunned++;
       return hours;
     }
-    return  '';
+    return '';
   }
 
   counter(hour) {
@@ -122,9 +125,9 @@ class Schedule extends Component {
 
     for (let i = 0; i < this.props.workoutInfo.length; i++) {
       if (this.props.workoutInfo[i].gymId === this.props.gymId) {
-        if(this.props.workoutInfo[i].startTime == hour) {
+        if (this.props.workoutInfo[i].startTime == hour) {
           counter++;
-        } 
+        }
       }
     }
     return counter;
@@ -154,7 +157,6 @@ class Schedule extends Component {
                 alignItems: "center",
                 backgroundColor: 'gray'
               }}>
-
                 <Text>Start Time: {this.props.modalInfo.startTime}</Text>
                 <Dropdown
                   label='End Time'
@@ -201,21 +203,26 @@ class Schedule extends Component {
           </View>
           {hours.map((hour, index) => {
             return (
-              <View key={index} style={schedulePage.textView}>
-                <Text style={schedulePage.text}>{hour}</Text>
-                <Text style={schedulePage.text}>{this.counter(hour)}</Text>
-                <Icon
-                  name='user'
-                  size={50}
-                  color="black"
-                />
-                <TouchableOpacity
-                  style={schedulePage.button}
-                  onPress={() => { this.showModal(); this.startTime(hour) }}
-                >
-                  <Text style={schedulePage.buttonText}>Schedule</Text>
-                </TouchableOpacity>
-              </View>
+              <TouchableOpacity
+                onPress={() => this.goToScheduleDetailsPage(this.props.gymId, hour)}
+                key={index}
+              >
+                <View style={schedulePage.textView}>
+                  <Text style={schedulePage.text}>{hour}</Text>
+                  <Icon
+                    name='user'
+                    size={50}
+                    color="black"
+                  />
+                  <Text style={schedulePage.text}>{this.counter(hour)}</Text>
+                  <TouchableOpacity
+                    style={schedulePage.button}
+                    onPress={() => { this.showModal(); this.startTime(hour) }}
+                  >
+                    <Text style={schedulePage.buttonText}>Schedule</Text>
+                  </TouchableOpacity>
+                </View>
+              </TouchableOpacity>
             )
           })}
         </ScrollView>
@@ -228,6 +235,7 @@ function mapStoreToProps(store) {
   return {
     showModal: store.schedule.showModal,
     token: store.login.token || store.register.token,
+    userId: store.login.userId || store.register.userId,
     modalInfo: store.schedule.modalInfo,
     workoutInfo: store.schedule.workoutInfo
   }

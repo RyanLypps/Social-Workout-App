@@ -35,19 +35,20 @@ export function handleRegisterSubmit(username, email, password) {
     return dispatch({
       type: 'HANDLE_CREATE_USER_SUBMIT',
       payload:
-        axios.post(`${HOST}/api/Users`, {
+        axios.post(`${HOST}/api/Customers`, {
           username: username,
           email: email.toLowerCase(),
           password: password,
         })
           .then(res =>
-            axios.post(`${HOST}/api/Users/login`, {
+            axios.post(`${HOST}/api/Customers/login`, {
               email: email.toLowerCase(),
               password: password
             })
               .then(res => {
+                const data = res.data
                 Actions.landingPage()
-                return res.data.id
+                return { data }
               })
               .catch(err => alert('Login attempt failed. Wrong username or password.'))
           )

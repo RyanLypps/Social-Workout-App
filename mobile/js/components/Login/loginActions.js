@@ -20,13 +20,14 @@ export function handleLoginSubmit(email, password) {
   return dispatch => {
     return dispatch({
       type: 'HANDLE_LOGIN_SUBMIT',
-      payload: axios.post(`${HOST}/api/Users/login`, {
+      payload: axios.post(`${HOST}/api/Customers/login`, {
         email: email.toLowerCase(),
         password: password
       })
         .then(res => {
+          const data = res.data;
           Actions.landingPage()
-          return res.data.id
+          return { data }
         })
         .catch(err => alert('Login attempt failed. Wrong username or password.'))
     })

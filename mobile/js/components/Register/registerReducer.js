@@ -3,7 +3,8 @@ const defaultState = {
   registerEmail: '',
   registerPassword: '',
   confirmedRegisterPassword: '',
-  token: ''
+  token: '',
+  userId: ''
 }
 
 export default function RegisterReducer(state = defaultState, action) {
@@ -40,7 +41,8 @@ export default function RegisterReducer(state = defaultState, action) {
     case 'HANDLE_CREATE_USER_SUBMIT_FULFILLED': {
       return {
         ...state,
-        token: payload
+        token: payload.data.id,
+        userId: payload.data.userId
       }
     }
 

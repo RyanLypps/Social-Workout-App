@@ -40,7 +40,7 @@ class LandingPage extends Component {
 
 function mapStoreToProps(store) {
   return {
-    token: store.login.token || store.register.token
+    token: store.login.token || store.register.token,
   }
 }
 
