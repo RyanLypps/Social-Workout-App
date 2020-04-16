@@ -148,7 +148,24 @@ export const schedulePage = StyleSheet.create({
 export const scheduleDetails =StyleSheet.create({
   container: {
     backgroundColor: '#3282b8', 
-    flex: 1, 
-    justifyContent:'center'
+    flex: 1,
+    alignContent: 'stretch',
+    paddingTop: 100,
+   
+  },
+  textView: {
+    flex: 1,
+    flexDirection: 'column',
+    borderBottomColor: 'black',
+    borderWidth: .25,
+    margin: 10,
+    paddingBottom: 50,
+    height: 100,
+  },
+  text: {
+    flexGrow: 1,
+    marginLeft: 5,
+    paddingTop: 5,
+    fontSize:20
   }
 })

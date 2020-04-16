@@ -50,10 +50,9 @@ export function handleGymId(gymId) {
   }
 }
 
-export function handlePostWorkout(modalInfo, userId) {
+export function handlePostWorkout(modalInfo, userId, username) {
   return dispatch => {
     return {
-      type: 'HANDLE_WORKOUT_INFO',
       payload: axios.post(`${HOST}/api/Customers/${userId}/workoutInfos`, {
         gymId: modalInfo.gymId,
         hoursSpent: modalInfo.hoursSpent,
@@ -61,6 +60,7 @@ export function handlePostWorkout(modalInfo, userId) {
         personalExperience: modalInfo.personalExperience,
         startTime: modalInfo.startTime,
         workoutDescription: modalInfo.workoutDescription,
+        username: username
       })
         .then(() => dispatch(handleGetWorkout()))
         .catch(() => alert('Something is wrong'))

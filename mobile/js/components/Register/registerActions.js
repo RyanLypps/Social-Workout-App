@@ -47,12 +47,22 @@ export function handleRegisterSubmit(username, email, password) {
             })
               .then(res => {
                 const data = res.data
+                dispatch(getCustomerInfo(data.userId))
                 Actions.landingPage()
                 return { data }
               })
               .catch(err => alert('Login attempt failed. Wrong username or password.'))
           )
           .catch(err => alert('Oops. Something went wrong.'))
+    })
+  }
+}
+
+function getCustomerInfo(userId) {
+  return dispatch => {
+    return dispatch({
+      type: 'HANDLE_GET_CUSTOMER_INFO',
+      payload: axios.get(`${HOST}/api/Customers/${userId}`)
     })
   }
 }

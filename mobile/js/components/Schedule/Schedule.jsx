@@ -82,7 +82,7 @@ class Schedule extends Component {
 
   postWorkout = () => {
     const { dispatch } = this.props;
-    dispatch(handlePostWorkout(this.props.modalInfo, this.props.userId))
+    dispatch(handlePostWorkout(this.props.modalInfo, this.props.userId, this.props.customerInfo.username))
   }
 
   getWorkout = () => {
@@ -237,7 +237,8 @@ function mapStoreToProps(store) {
     token: store.login.token || store.register.token,
     userId: store.login.userId || store.register.userId,
     modalInfo: store.schedule.modalInfo,
-    workoutInfo: store.schedule.workoutInfo
+    workoutInfo: store.schedule.workoutInfo,
+    customerInfo: store.login.customerInfo || store.register.customerInfo,
   }
 }
 
