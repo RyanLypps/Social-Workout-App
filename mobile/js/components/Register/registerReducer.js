@@ -3,7 +3,9 @@ const defaultState = {
   registerEmail: '',
   registerPassword: '',
   confirmedRegisterPassword: '',
-  token: ''
+  token: '',
+  userId: '',
+  customerInfo: {}
 }
 
 export default function RegisterReducer(state = defaultState, action) {
@@ -40,8 +42,20 @@ export default function RegisterReducer(state = defaultState, action) {
     case 'HANDLE_CREATE_USER_SUBMIT_FULFILLED': {
       return {
         ...state,
-        token: payload
+        token: payload.data.id,
+        userId: payload.data.userId
       }
+    }
+
+    case 'HANDLE_GET_CUSTOMER_INFO_FULFILLED': {
+      return {
+        ...state,
+        customerInfo: payload.data
+      }
+    }
+
+    case 'HANDLE_GET_CUSTOMER_INFO_REJECTED': {
+      return console.log('rejected reducer hit')
     }
 
     default: {

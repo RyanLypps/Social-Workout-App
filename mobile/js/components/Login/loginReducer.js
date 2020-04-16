@@ -1,7 +1,9 @@
 const defaultState = {
   loginEmail: '',
   loginPassword: '',
-  token: ''
+  token: '',
+  userId: '',
+  customerInfo: {}
 }
 
 export default function LoginReducer(state = defaultState, action) {
@@ -24,8 +26,20 @@ export default function LoginReducer(state = defaultState, action) {
     case 'HANDLE_LOGIN_SUBMIT_FULFILLED': {
       return {
         ...state,
-        token: payload
+        token: payload.data.id,
+        userId: payload.data.userId
       }
+    }
+
+    case 'HANDLE_GET_CUSTOMER_INFO_FULFILLED': {
+      return {
+        ...state,
+        customerInfo: payload.data
+      }
+    }
+
+    case 'HANDLE_GET_CUSTOMER_INFO_REJECTED': {
+      return console.log('rejected reducer hit')
     }
 
     default: {
