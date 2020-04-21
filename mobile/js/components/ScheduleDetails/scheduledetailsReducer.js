@@ -10,7 +10,7 @@ const defaultState = {
       case 'HANDLE_CURRENT_WORKOUT_USER': {
         return {
           ...state,
-          workoutInfoUser: { username: payload.username, customerId: payload.customerId },
+          workoutInfoUser: { username: payload.username, customerId: payload.customerId }
         }
       }
 

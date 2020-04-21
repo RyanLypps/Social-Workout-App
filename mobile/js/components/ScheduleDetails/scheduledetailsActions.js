@@ -1,12 +1,8 @@
-export function handleCurrentWorkoutInfoUser(username, customerId, showDetailModal) {
-  return dispatch => {
-    console.log(username, customerId)
+export function handleCurrentWorkoutInfoUser(username, customerId) {
     return {
-    type: 'HANDLE_CURRENT_WORKOUT_USER',
-    payload: {username, customerId },
-    dispatch: dispatch(handleShowDetailModal(showDetailModal))
+      type: 'HANDLE_CURRENT_WORKOUT_USER',
+      payload: { username, customerId }
     }
-  }
 }
 
 export function handleShowDetailModal(showModal) {
@@ -21,11 +17,3 @@ export function handleMessageInput(message){
     payload: { message }
   }
 }
-
-// export function handleSendMessage(message, buddyId, customerId) {
-//   return dispatch => {
-//     return dispatch({
-
-//     })
-//   }
-// }

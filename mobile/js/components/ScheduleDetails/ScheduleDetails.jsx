@@ -3,27 +3,46 @@ import { Text, View, ScrollView, Image, TouchableOpacity, Modal, TextInput } fro
 import { connect } from 'react-redux';
 import { scheduleDetails } from '../../../styles/Styles'
 import faker from 'faker';
-import { 
+import {
   handleShowDetailModal,
   handleCurrentWorkoutInfoUser,
-  handleMessageInput
- } from './scheduledetailsActions';
+  handleMessageInput,
+} from './scheduledetailsActions';
+import axios from 'axios';
+import { HOST } from 'react-native-dotenv';
 
 class ScheduleDetails extends Component {
 
-  showDetailModal(username, customerId) {
+  showDetailModal() {
     const { dispatch, showModal } = this.props;
-    dispatch(handleCurrentWorkoutInfoUser(username, customerId, showModal));
+    dispatch(handleShowDetailModal(showModal));
   }
 
-  closeDetailModal() {
-    const { dispatch, showModal } = this.props;
-    dispatch(handleShowDetailModal(showModal))
+  currentWorkoutInfoUser(username, customerId) {
+    const { dispatch } = this.props;
+    dispatch(handleCurrentWorkoutInfoUser(username, customerId));
   }
-  
+
   messageInput(message) {
     const { dispatch } = this.props;
     dispatch(handleMessageInput(message))
+  }
+
+  sendMessage(message, buddyId, buddyUsername, username, userId) {
+    axios.get(`${HOST}/api/Customers/${buddyId}/inboxes`)
+      .then(res => axios.post(`${HOST}/api/Inboxes/${res.data.id}/messages`, {
+        received: {
+          message: message,
+          from: username
+        }
+      }))
+    axios.get(`${HOST}/api/Customers/${userId}/inboxes`)
+      .then(res => axios.post(`${HOST}/api/Inboxes/${res.data.id}/messages`, {
+        sent: {
+          message: message,
+          to: buddyUsername
+        }
+      }))
   }
 
   workouts() {
@@ -36,7 +55,7 @@ class ScheduleDetails extends Component {
         <Text style={scheduleDetails.text}>Personal Experience: {a.personalExperience}</Text>
         <TouchableOpacity
           style={scheduleDetails.button}
-          onPress={() => this.showDetailModal(a.username, a.customerId)}
+          onPress={() => { this.showDetailModal(); this.currentWorkoutInfoUser(a.username, a.customerId) }}
         >
           <Text style={scheduleDetails.buttonText}>Message</Text>
         </TouchableOpacity>
@@ -47,7 +66,6 @@ class ScheduleDetails extends Component {
   }
 
   render() {
-    console.log(this.props.workoutInfoUser)
     return (
       <View style={scheduleDetails.container} >
         <ScrollView>{this.workouts()}</ScrollView>
@@ -71,13 +89,14 @@ class ScheduleDetails extends Component {
               placeholderTextColor='white'
               onChangeText={message => this.messageInput(message)}
             />
+            {console.log(this.props.message, this.props.workoutInfoUser.customerId, this.props.workoutInfoUser.username, this.props.customerInfo.username, this.props.customerInfo.id)}
             <TouchableOpacity
-              onPress={() => this.closeDetailModal()}
+              onPress={() => { this.sendMessage(this.props.message, this.props.workoutInfoUser.customerId, this.props.workoutInfoUser.username, this.props.customerInfo.username, this.props.customerInfo.id); this.showDetailModal() }}
             >
               <Text style={{ color: 'black' }}>Send</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => this.closeDetailModal()}
+              onPress={() => this.showDetailModal()}
             >
               <Text style={{ color: 'black' }}>Cancel</Text>
             </TouchableOpacity>

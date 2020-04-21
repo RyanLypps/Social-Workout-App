@@ -1,22 +1,24 @@
 {
-  "name": "Inbox",
-  "plural": "Inboxes",
+  "name": "Message",
+  "plural": "Messages",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
     "validateUpsert": true
   },
-  "properties": {},
+  "properties": {
+    "sent": {
+      "type": "object"
+    },
+    "received": {
+      "type": "object"
+    }
+  },
   "validations": [],
   "relations": {
-    "customer": {
+    "inbox": {
       "type": "belongsTo",
-      "model": "Customer",
-      "foreignKey": ""
-    },
-    "messages": {
-      "type": "hasMany",
-      "model": "Message",
+      "model": "Inbox",
       "foreignKey": ""
     }
   },

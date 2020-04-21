@@ -50,15 +50,15 @@ export function handleRegisterSubmit(username, email, password) {
                   email: email.toLowerCase(),
                   password: password
                 })
-              .then(res => {
-                const data = res.data
-                dispatch(getCustomerInfo(data.userId))
-                Actions.landingPage()
-                return { data }
-              })
+                .then(res => {
+                  const data = res.data
+                  dispatch(getCustomerInfo(data.userId))
+                  Actions.landingPage()
+                  return { data }
+                })
               .catch(err => alert('Login attempt failed. Wrong username or password.'))
           )
-        .catch(err => alert('User created without inbox'))
+          .catch(err => alert('User created without inbox'))
       .catch(err => alert('Oops. Something went wrong.'))
     })
   }
