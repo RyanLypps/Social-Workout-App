@@ -41,10 +41,15 @@ export function handleRegisterSubmit(username, email, password) {
           password: password,
         })
           .then(res =>
-            axios.post(`${HOST}/api/Customers/login`, {
-              email: email.toLowerCase(),
-              password: password
-            })
+            // creates customer inbox
+            axios.post(`${HOST}/api/Inboxes`, {
+              customerId: res.data.id
+            }))
+              .then(res => 
+                axios.post(`${HOST}/api/Customers/login`, {
+                  email: email.toLowerCase(),
+                  password: password
+                })
               .then(res => {
                 const data = res.data
                 dispatch(getCustomerInfo(data.userId))
@@ -53,7 +58,8 @@ export function handleRegisterSubmit(username, email, password) {
               })
               .catch(err => alert('Login attempt failed. Wrong username or password.'))
           )
-          .catch(err => alert('Oops. Something went wrong.'))
+        .catch(err => alert('User created without inbox'))
+      .catch(err => alert('Oops. Something went wrong.'))
     })
   }
 }

@@ -15,3 +15,17 @@ export function handleShowDetailModal(showModal) {
     payload: !showModal
     }
 }
+export function handleMessageInput(message){
+  return {
+    type: 'HANDLE_MESSAGE_INPUT',
+    payload: { message }
+  }
+}
+
+// export function handleSendMessage(message, buddyId, customerId) {
+//   return dispatch => {
+//     return dispatch({
+
+//     })
+//   }
+// }

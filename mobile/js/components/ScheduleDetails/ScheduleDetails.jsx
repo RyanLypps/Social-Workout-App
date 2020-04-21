@@ -5,7 +5,8 @@ import { scheduleDetails } from '../../../styles/Styles'
 import faker from 'faker';
 import { 
   handleShowDetailModal,
-  handleCurrentWorkoutInfoUser
+  handleCurrentWorkoutInfoUser,
+  handleMessageInput
  } from './scheduledetailsActions';
 
 class ScheduleDetails extends Component {
@@ -18,6 +19,11 @@ class ScheduleDetails extends Component {
   closeDetailModal() {
     const { dispatch, showModal } = this.props;
     dispatch(handleShowDetailModal(showModal))
+  }
+  
+  messageInput(message) {
+    const { dispatch } = this.props;
+    dispatch(handleMessageInput(message))
   }
 
   workouts() {
@@ -63,6 +69,7 @@ class ScheduleDetails extends Component {
               style={{ borderWidth: 1, borderColor: 'black', height: 200, width: 265, textAlign: 'center' }}
               placeholder="Say Hello to Your Future workout buddy"
               placeholderTextColor='white'
+              onChangeText={message => this.messageInput(message)}
             />
             <TouchableOpacity
               onPress={() => this.closeDetailModal()}
@@ -87,7 +94,8 @@ function mapStoreToProps(store) {
     workoutInfo: store.schedule.workoutInfo,
     customerInfo: store.login.customerInfo || store.register.customerInfo,
     showModal: store.scheduleDetails.showModal,
-    workoutInfoUser: store.scheduleDetails.workoutInfoUser
+    workoutInfoUser: store.scheduleDetails.workoutInfoUser,
+    message: store.scheduleDetails.message
   }
 }
 

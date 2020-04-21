@@ -1,6 +1,7 @@
 const defaultState = {
     showModal: false,
-    workoutInfoUser: {}
+    workoutInfoUser: {},
+    message: ''
   }
   
   export default function scheduleDetailsReducer(state = defaultState, action) {
@@ -17,6 +18,13 @@ const defaultState = {
         return {
           ...state,
           showModal: payload
+        }
+      }
+
+      case 'HANDLE_MESSAGE_INPUT': {
+        return {
+          ...state,
+          message: payload.message
         }
       }
 
