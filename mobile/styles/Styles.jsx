@@ -152,12 +152,23 @@ export const scheduleDetails =StyleSheet.create({
     borderWidth: .25,
     margin: 10,
     paddingBottom: 50,
-    height: 100,
+    height: 190,
   },
   text: {
     flexGrow: 1,
     marginLeft: 5,
     paddingTop: 5,
     fontSize:20
+  },
+  button: {
+    alignSelf: 'flex-end',
+    borderColor: 'white',
+    borderWidth: 1,
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 20,
+    marginLeft: 10,
+    marginRight: 10
   }
 })
