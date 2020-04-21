@@ -1,0 +1,25 @@
+{
+  "name": "Inbox",
+  "plural": "Inboxes",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {},
+  "validations": [],
+  "relations": {
+    "customer": {
+      "type": "belongsTo",
+      "model": "Customer",
+      "foreignKey": ""
+    },
+    "messages": {
+      "type": "hasMany",
+      "model": "Message",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

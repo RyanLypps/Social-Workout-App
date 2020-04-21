@@ -42,5 +42,13 @@
   "Customer": {
     "dataSource": "MongoDB",
     "public": true
+  },
+  "Inbox": {
+    "dataSource": "MongoDB",
+    "public": true
+  },
+  "Message": {
+    "dataSource": "MongoDB",
+    "public": true
   }
 }

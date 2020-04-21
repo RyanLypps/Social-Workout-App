@@ -1,0 +1,27 @@
+{
+  "name": "Message",
+  "plural": "Messages",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "sent": {
+      "type": "object"
+    },
+    "received": {
+      "type": "object"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "inbox": {
+      "type": "belongsTo",
+      "model": "Inbox",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}
