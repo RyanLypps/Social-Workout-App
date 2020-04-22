@@ -8,7 +8,8 @@ import {
   handleLoginPassword,
   handleLoginSubmit
  } from './loginActions';
-
+ import Header from '../Header/Header';
+ 
 class Login extends Component {
   
   handleEmail = text => {
@@ -31,6 +32,7 @@ class Login extends Component {
   render() {
     return (
       <View style={login.container}>
+        <Header />
         <View style={{paddingBottom: 75}}>
           <Text style={login.header}>Sign In</Text>
         </View>
