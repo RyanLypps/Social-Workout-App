@@ -14,7 +14,6 @@ export const login = StyleSheet.create({
     borderColor: 'white',
     borderWidth: 1,
     borderRadius: 10
-
   },
   button: {
     borderColor: 'white',
@@ -52,7 +51,6 @@ export const register = StyleSheet.create({
     borderColor: 'white',
     borderWidth: 1,
     borderRadius: 10
-
   },
   button: {
     borderColor: 'white',
@@ -88,7 +86,6 @@ export const landingPage = StyleSheet.create({
     borderColor: 'white',
     borderWidth: 1,
     borderRadius: 10
-
   },
   header: {
     fontSize: 50,
@@ -111,9 +108,7 @@ export const schedulePage = StyleSheet.create({
   container: {
     backgroundColor: '#3282b8',
     paddingTop: 100,
-
   },
-
   textView: {
     flex: 1,
     flexDirection: 'row',
@@ -129,7 +124,6 @@ export const schedulePage = StyleSheet.create({
     marginLeft: 5,
     paddingTop: 5,
     fontSize:20
-
   },
   button: {
     alignSelf: 'flex-end',
@@ -142,7 +136,6 @@ export const schedulePage = StyleSheet.create({
     marginLeft: 10,
     marginRight: 10
   }
-
 })
 
 export const scheduleDetails =StyleSheet.create({
@@ -151,7 +144,6 @@ export const scheduleDetails =StyleSheet.create({
     flex: 1,
     alignContent: 'stretch',
     paddingTop: 100,
-   
   },
   textView: {
     flex: 1,

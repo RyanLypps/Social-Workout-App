@@ -5,9 +5,6 @@ import { connect } from 'react-redux';
 import { gymList } from '../../MockData';
 import { landingPage } from '../../../styles/Styles'
 
-
-class LandingPage extends Component {
-  goToSchedulePage = gymId => Actions.schedule({gymId: gymId});
   gymList() {
     return (
       gymList.results.map((gym, index) => {

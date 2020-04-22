@@ -8,9 +8,13 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@react-native-community/masked-view": "^0.1.10",
+    "@react-navigation/drawer": "^5.5.0",
+    "@react-navigation/native": "^5.1.6",
     "axios": "^0.19.2",
     "expo": "~36.0.0",
     "faker": "^4.1.0",
+
     "link": "^0.1.5",
     "moment": "^2.24.0",
     "react": "~16.9.0",
