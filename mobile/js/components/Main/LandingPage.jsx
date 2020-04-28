@@ -4,6 +4,7 @@ import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { gymList } from '../../MockData';
 import { landingPage } from '../../../styles/Styles'
+import Hamburger from '../Hamburger/Hamburger';
 
 class LandingPage extends Component {
   goToSchedulePage = gymId => Actions.schedule({gymId: gymId});
@@ -31,6 +32,7 @@ class LandingPage extends Component {
   render() {
     return (
       <ScrollView style={landingPage.container} scrollEnabled={true}>
+        <Hamburger />
         <View style={{ flex: 1 }}>{this.gymList()}</View>
       </ScrollView>
     )
