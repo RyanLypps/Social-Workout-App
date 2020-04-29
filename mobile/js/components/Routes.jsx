@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Router, Scene, Stack, Actions, Drawer } from 'react-native-router-flux';
+import { Router, Scene, Stack } from 'react-native-router-flux';
+import { Text, View } from 'react-native'
 import Login from './Login/Login';
 import LandingPage from './Main/LandingPage';
 import Register from './Register/Register';
@@ -11,8 +12,8 @@ export default class Routes extends Component {
 
   render() {
     return (
-      <Router >
-        <Scene key='root' >
+      <Router>
+        <Scene key='root'>
           <Scene key='login' component={Login} initial={true} hideNavBar={true} />
           <Scene key='register' component={Register} hideNavBar={true} />
             <Scene key='landingPage' component={LandingPage} hideNavBar={true} />

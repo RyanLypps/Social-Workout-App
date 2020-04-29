@@ -6,8 +6,6 @@ import { gymList } from '../../MockData';
 import { landingPage } from '../../../styles/Styles'
 import Hamburger from '../Hamburger/Hamburger';
 
-class LandingPage extends Component {
-  goToSchedulePage = gymId => Actions.schedule({gymId: gymId});
   gymList() {
     return (
       gymList.results.map((gym, index) => {
