@@ -10,6 +10,7 @@ import {
 } from './scheduledetailsActions';
 import axios from 'axios';
 import { HOST } from 'react-native-dotenv';
+import Hamburger from '../Hamburger/Hamburger';
 
 class ScheduleDetails extends Component {
 
@@ -68,6 +69,7 @@ class ScheduleDetails extends Component {
   render() {
     return (
       <View style={scheduleDetails.container} >
+        <Hamburger />
         <ScrollView>{this.workouts()}</ScrollView>
         <Modal
           animationType="slide"

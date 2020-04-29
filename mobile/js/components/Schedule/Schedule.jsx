@@ -18,6 +18,7 @@ import {
   handleGetWorkout,
   handleGymId
 } from './scheduleActions';
+import Hamburger from '../Hamburger/Hamburger';
 
 const hours = [];
 let isRunned = 0;
@@ -136,6 +137,7 @@ class Schedule extends Component {
   render() {
     return (
       <View style={schedulePage.container} >
+          <Hamburger />
         <ScrollView scrollEnabled={true}>
           <View style={{
             flex: 1,
